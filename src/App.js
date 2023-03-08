@@ -8,7 +8,7 @@ import './styles/App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Navigation />
       <Routes>
         <Route path='/' element={<Home />} /> {/* path='/'는 보통 홈화면을 의미 */}
