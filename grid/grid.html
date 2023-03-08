@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grid</title>
+  <style>
+  .grid_container{display: grid; grid-template-rows: 70px 200px 70px; grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px; width: 600px;} /* (단위)fractional unit 사용 가능한 공간에 대한 비율 */
+    /* grid-row-gap, grid-column-gap */
+    .grid_item{background: #0369ff; color: #fff; display: flex; flex-direction: row; justify-content: center; align-items: center;}
+    .header{grid-column: 1/-1; grid-row: 1/2;} /* grid-column-start: 1; grid-column-end: -1; */
+    /* 경계선 번호 처음(1)부터 끝(-1)까지 영역 차지 */
+    .nav{grid-column: 1/2; grid-row: 2/3;}
+    .main{grid-column: 2/3; grid-row: 2/3;}
+    .aside{grid-column: 3/4; grid-row: 2/3;}
+    .footer{grid-column: 1/-1; grid-row: 3/4;}
+  </style>
+</head>
+<body>
+  <div class="grid_container">
+    <div class="grid_item header">Header</div>
+    <div class="grid_item nav">Nav</div>
+    <div class="grid_item main">Main</div>
+    <div class="grid_item aside">Aside</div>
+    <div class="grid_item footer">Footer</div>
+  </div>
+</body>
+</html>
