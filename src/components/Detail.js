@@ -1,11 +1,17 @@
 import React from 'react'
 import '../styles/Movie.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Detail.css'
 
 function Detail() {
   const location = useLocation();
   console.log(location)
+
+  const navigate = useNavigate();
+  if(location.state === undefined){
+    navigate('/'); //직접 주소창에 /detail 입력해서 이동할 때 바로 홈으로 이동(전달되는 state값이 없어서 404 뜸), 즉 리다이렉트 기능
+  }
+
   const {genres, poster, summary, title, year} = location.state;
 
   return (

@@ -1,23 +1,27 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Movie from '../components/Movie';
 import '../styles/Home.css';
 
-export class Home extends Component {
+function Home() {
+  // state = {
+  //   isLoading: true,
+  //   movies : [],
+  // }
+  const [isLoading, setIsLoading] = useState(true);
+  const [movies, setMovies] = useState([]);
 
-  state = {
-    isLoading: true,
-    movies : [],
-  }
+  // componentDidMount(){
+  //   // setTimeout(() => {
+  //   //   this.setState({isLoading:false});
+  //   // }, 6000)
+  //   this.getMovies();
+  // }
+  useEffect(()=>{
+    getMovies();
+  }, []);
 
-  componentDidMount(){
-    // setTimeout(() => {
-    //   this.setState({isLoading:false});
-    // }, 6000)
-    this.getMovies();
-  }
-
-  getMovies = async () => {
+  const getMovies = async () => {
     const {
       data: {
         data : {
@@ -27,42 +31,42 @@ export class Home extends Component {
     } =
     await axios.get('https://yts-proxy.now.sh/list_movies.json?genre=animation&sort_by=like_count')
     
-    this.setState({
-      isLoading:false,
-      movies, 
-  })
+    // this.setState({
+    //   isLoading:false,
+    //   movies, 
+    // })                   ---> setIsLoading
+    setIsLoading(false);
+    setMovies(movies);
+  }
 
-  }
-  render() {
-    const{isLoading, movies} = this.state; //구조분해할당
-    return (
-      
-      <section className="container">
-        {isLoading ? 
-        <div className="loader">
-            <span className="loder_text">'Loading...'</span>
-        </div>
-        :
-        <div className="movies">
-          {movies.map((movie, index) => <Movie
-                                          key={index}
-                                          id={movie.id}
-                                          year={movie.year}
-                                          title={movie.title}
-                                          summary={movie.summary}
-                                          poster={movie.medium_cover_image}
-                                          genres={movie.genres}
-                                        />
-                                        
-                      )
-          }
-          
-        </div>
+  // const{isLoading, movies} = this.state; //구조분해할당
+  return (
+    
+    <section className="container">
+      {isLoading ? 
+      <div className="loader">
+          <span className="loder_text">'Loading...'</span>
+      </div>
+      :
+      <div className="movies">
+        {movies.map((movie, index) => <Movie
+                                        key={index}
+                                        id={movie.id}
+                                        year={movie.year}
+                                        title={movie.title}
+                                        summary={movie.summary}
+                                        poster={movie.medium_cover_image}
+                                        genres={movie.genres}
+                                      />
+                                      
+                    )
         }
-      </section>
-      
-    )
-  }
+        
+      </div>
+      }
+    </section>
+    
+  )
 }
 
 export default Home;
